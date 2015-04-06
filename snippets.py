@@ -18,7 +18,7 @@ def put(name, snippet):
     cursor.execute(command, (name, snippet))
     connection.commit()
     logging.debug("Snippet stored successfully.")
-    return name, snippet
+    return snippet
         
 def get(name):
     """Retrieve the snippet with a given name."""
@@ -26,8 +26,8 @@ def get(name):
     cursor = connection.cursor()
     command = "select keyword from snippets where keyword=%s"
     cursor.execute(command, (name,))
-    connection.commit()
     cursor.fetchone()
+    connection.commit()
     logging.debug("Snippet retrieved successfully.")
     return snippet
     
