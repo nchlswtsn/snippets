@@ -27,9 +27,9 @@ def get(name):
     command = "select keyword from snippets where keyword=%s"
     cursor.execute(command, (name,))
     connection.commit()
-    cursor.fetchone(snippet)
+    cursor.fetchone()
     logging.debug("Snippet retrieved successfully.")
-    return name, snippet
+    return name
     
     
 def main():
