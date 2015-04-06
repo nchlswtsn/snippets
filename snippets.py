@@ -29,7 +29,7 @@ def get(name):
     connection.commit()
     cursor.fetchone()
     logging.debug("Snippet retrieved successfully.")
-    return name
+    return snippet
     
     
 def main():
