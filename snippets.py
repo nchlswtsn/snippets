@@ -22,14 +22,14 @@ def put(name, snippet):
         
 def get(name):
     """Retrieve the snippet with a given name."""
-    logging.info("Retrieving snippet {!r}.".format(name,))
+    logging.info("Retrieving snippet {!r}.".format(name))
     cursor = connection.cursor()
-    command = "select keyword from snippets where keyword=%s"
-    cursor.execute(command, (name,))
-    cursor.fetchone()
+    command = "select message from snippets where keyword=%s"
+    print cursor.execute(command, (name,))
+    print cursor.fetchone()
     connection.commit()
     logging.debug("Snippet retrieved successfully.")
-    return snippet
+    return name
     
     
 def main():
@@ -58,7 +58,7 @@ def main():
         print("Stored {!r} as {!r}".format(snippet, name))
     elif command == "get":
         snippet = get(**arguments)
-        print("Retrieved snippet: {!r}".format(snippet))
+        print("Retrieved snippet {!r}.".format(snippet))
         
 if __name__ == "__main__":
     main()
