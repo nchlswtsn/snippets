@@ -58,7 +58,7 @@ def main():
         print("Stored {!r} as {!r}".format(snippet, name))
     elif command == "get":
         snippet = get(**arguments)
-        print("Retrieved snippet {!r}.".format(snippet))
+        print("Retrieved snippet: {!r}.".format(snippet))
         
 if __name__ == "__main__":
     main()
