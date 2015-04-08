@@ -62,11 +62,11 @@ def main():
     command = arguments.pop("command")
     
     if command == "put":
-        name, snippet = put(**arguments)
-        print("Stored {!r} as {!r}".format(snippet, name))
+        name = put(**arguments)
+        print("Stored {!r}.".format(name,))
     elif command == "get":
         snippet = get(**arguments)
-        print("Retrieved snippet: {!r}.".format(snippet))
+        print("Retrieved snippet: {}.".format(snippet))
         
 if __name__ == "__main__":
     main()
