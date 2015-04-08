@@ -28,11 +28,10 @@ def put(name, snippet):
 def get(name):
     """Retrieve the snippet with a given name."""
     logging.info("Retrieving snippet {!r}.".format(name))
-    cursor = connection.cursor()
     command = "select message from snippets where keyword=%s"
-    cursor.execute(command, (name,))
-    row = cursor.fetchone()
-    connection.commit()
+    with connection, connection.cursor() as cursor:
+      cursor.execute("select message from snippets where keyword=%s", (name,))
+      row = cursor.fetchone()
     logging.debug("Snippet retrieved successfully.")
     if not row:
       print "Snippet does not exist."
@@ -63,7 +62,7 @@ def main():
     
     if command == "put":
         name = put(**arguments)
-        print("Stored {!r}.".format(name,))
+        print("Stored {!r}.".format(name))
     elif command == "get":
         snippet = get(**arguments)
         print("Retrieved snippet: {}.".format(snippet))
