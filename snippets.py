@@ -36,7 +36,19 @@ def get(name):
       print "Snippet does not exist."
     else:
       return row[0]
-    
+  
+def catalogue():
+  """Provide a list of all snippets with names."""
+  logging.info("Retrieving snippet catalogue.")
+  command = "select * from table"
+  with connection, connection.cursor() as cursor:
+    cursor.execute("select * from snippets")
+    row = cursor.fetchall()
+  logging.debug("Catalogue retrieved successfully.")
+  if not row:
+      print "Catalogue is empty."
+  else:
+      return row
     
 def main():
     """Main function"""
@@ -51,8 +63,16 @@ def main():
     put_parser.add_argument("name", help="The name of the snippet")
     put_parser.add_argument("snippet", help="The snippet text")
     
+    # Subparser for the get command
     get_parser = subparsers.add_parser("get", help="Retrieve a snippet")
     get_parser.add_argument("name", help="The name of the snippet")
+    get_parser.add_argument("snippet", help="The snippet text")
+    
+    
+    
+    # Subparser for the catalogue command
+    get_parser = subparsers.add_parser("catalogue", help="Retrieve snippet catalogue")    
+
     
     arguments = parser.parse_args(sys.argv[1:])
     # Convert parsed arguments from Namespace to dictionary
@@ -60,11 +80,20 @@ def main():
     command = arguments.pop("command")
     
     if command == "put":
-        name = put(**arguments)
-        print("Stored {!r}.".format(name))
+      name = put(**arguments)
+      print("Stored {!r}.".format(name))
     elif command == "get":
-        snippet = get(**arguments)
-        print("Retrieved snippet: {}.".format(snippet))
+      snippet = get(**arguments)
+      print("Retrieved snippet: {}.".format(snippet))
+    elif command == "catalogue":
+      row = catalogue(**arguments)
+      print "Catalogue returned: "
+      for pairs in row:
+        print pairs
+      
+      
+      
+      
         
 if __name__ == "__main__":
     main()
